@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { firestore } from '../firebase';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -8,8 +8,8 @@ function Home() {
   useEffect(() => {
     firestore
       .collection('posts')
-      .get()
-      .then((snapshot) => {
+      .orderBy('createdAt', 'desc')
+      .onSnapshot((snapshot) => {
         const posts = snapshot.docs.map((doc) => {
           return {
             id: doc.id,
@@ -17,7 +17,6 @@ function Home() {
           };
         });
 
-        console.log('posts', posts);
         setPosts(posts);
       });
   }, []);

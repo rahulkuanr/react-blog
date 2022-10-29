@@ -10,9 +10,7 @@ function PostDetail() {
     firestore
       .collection('posts')
       .doc(postId)
-      .get()
-      .then((snapshot) => {
-        console.log('snap', snapshot.data());
+      .onSnapshot((snapshot) => {
         setPost(snapshot.data());
       });
   }, []);
